@@ -1,0 +1,22 @@
+name: CI y CD de suma
+on: push
+jobs:
+  suma:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # CI: ejecutar el programa y mostrar resultado en logs
+      - name: Ejecutar suma (CI)
+        run: python suma.py
+
+      # CD: guardar el resultado en un archivo y entregarlo
+      - name: Crear archivo con resultado (CD)
+        run: python suma.py > resultado.txt
+
+      - name: Guardar artefacto (CD)         
+        uses: actions/upload-artifact@v4         
+        with:           
+          name: resultado-suma           
+          path: resultado.txt 
